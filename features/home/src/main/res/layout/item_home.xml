@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout
+    android:id="@+id/shimmerHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:shimmer_duration="1500"
+    app:shimmer_base_alpha="0.8"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/homeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/ripple_color"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/low_white"
+        app:cardCornerRadius="5dp">
+
+        <ImageView
+            android:id="@+id/homeImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/item_home"
+            tools:src="@tools:sample/avatars"/>
+    </androidx.cardview.widget.CardView>
+</com.facebook.shimmer.ShimmerFrameLayout>

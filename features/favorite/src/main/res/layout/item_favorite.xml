@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favoriteBackground"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/ripple_color"
+    android:layout_marginBottom="@dimen/small2">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFavorite"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:shimmer_base_alpha="0.8"
+        app:shimmer_duration="1500"
+        app:layout_constraintDimensionRatio="w,1:0.75"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/popularImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/item_home"
+            tools:src="@tools:sample/avatars" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <TextView
+        android:id="@+id/favoriteTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:maxLines="2"
+        android:textColor="@color/high_white"
+        android:textSize="@dimen/text_medium2"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+        app:layout_constraintStart_toEndOf="@+id/shimmerFavorite"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/favoriteYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:maxLines="1"
+        android:textColor="@color/medium_white"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+        app:layout_constraintStart_toEndOf="@+id/shimmerFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteTitle" />
+
+    <TextView
+        android:id="@+id/favoriteGenre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:maxLines="2"
+        android:textColor="@color/low_white"
+        android:textSize="@dimen/text_small"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+        app:layout_constraintStart_toEndOf="@+id/shimmerFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteYear"/>
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:background="@drawable/ic_favorite_background"
+        android:clickable="true"
+        android:contentDescription="@string/back"
+        android:focusable="true"
+        android:padding="5dp"
+        android:src="@drawable/ic_favorite_filled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

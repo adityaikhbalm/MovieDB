@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MovieDB" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/medium_dark</item>
+        <item name="colorPrimaryDark">@color/medium_dark</item>
+        <item name="colorAccent">@color/medium_dark</item>
+        <item name="colorPrimaryVariant">@color/high_dark</item>
+        <item name="colorOnPrimary">@color/low_dark</item>
+        <item name="android:navigationBarColor">@color/high_dark</item>
+        <item name="android:windowBackground">@color/medium_dark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

@@ -1,0 +1,16 @@
+rootProject.name = "MovieDB"
+include (
+    ":app",
+    ':core:domain',
+    ":core:data",
+    ":core:cache",
+    ":core:remote",
+    ":core:model",
+    ":libraries:abstraction",
+    ":libraries:ui",
+    ":libraries:utility",
+    ":features:home",
+    ":features:popular",
+    ":features:favorite",
+    ":features:detail"
+)

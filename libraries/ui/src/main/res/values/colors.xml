@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_selected">#FFD130</color>
+    <color name="high_dark">#202123</color>
+    <color name="medium_dark">#25272A</color>
+    <color name="low_dark">#2B3038</color>
+    <color name="high_white">#FFFFFF</color>
+    <color name="medium_white">#B3FFFFFF</color>
+    <color name="low_white">#66FFFFFF</color>
+</resources>

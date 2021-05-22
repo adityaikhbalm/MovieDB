@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/medium2">
+
+        <TextView
+            android:id="@+id/popularTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/popular_movies"
+            android:textColor="@color/high_white"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:layout_marginStart="@dimen/small2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="@dimen/small"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingEnd="@dimen/small2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popularTv"
+            tools:ignore="RtlSymmetry" />
+
+        <include
+            layout="@layout/initial_loader"
+            android:id="@+id/popularLoader"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/popularRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/popularRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/popularRecyclerView"
+            app:layout_constraintTop_toTopOf="@+id/popularRecyclerView" />
+
+        <TextView
+            android:id="@+id/comingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coming_soon"
+            android:textColor="@color/high_white"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:layout_marginTop="@dimen/medium2"
+            android:layout_marginStart="@dimen/small2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popularRecyclerView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comingRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="@dimen/small"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingEnd="@dimen/small2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comingTv"
+            tools:ignore="RtlSymmetry" />
+
+        <include
+            layout="@layout/initial_loader"
+            android:id="@+id/comingLoader"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/comingRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/comingRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/comingRecyclerView"
+            app:layout_constraintTop_toTopOf="@+id/comingRecyclerView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>
