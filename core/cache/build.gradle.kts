@@ -1,6 +1,6 @@
 import constant.LibraryDependency.Coroutines
-import constant.LibraryDependency.Database
 import constant.LibraryDependency.DI
+import constant.LibraryDependency.Database
 import constant.LibraryDependency.Paging
 import constant.ModulesDependency
 import constant.TestLibraryDependency
@@ -35,5 +35,5 @@ dependencies {
     unitTestingAll(TestLibraryDependency.unitTest)
     testImplementation(TestLibraryDependency.robolectric)
     testImplementation(TestLibraryDependency.roomTest)
-    testImplementation(TestLibraryDependency.testExt)
+    testImplementation(TestLibraryDependency.testCore)
 }

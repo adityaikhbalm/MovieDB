@@ -1,13 +1,17 @@
 package com.adityaikhbalm.features.home.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.adityaikhbalm.core.domain.usecase.remote.BannerUseCase
 import com.adityaikhbalm.core.domain.usecase.remote.ComingUseCase
 import com.adityaikhbalm.core.domain.usecase.remote.PopularUseCase
 import com.adityaikhbalm.core.model.response.Movie
 import com.adityaikhbalm.libraries.abstraction.interactor.ResultState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class HomeViewModel(

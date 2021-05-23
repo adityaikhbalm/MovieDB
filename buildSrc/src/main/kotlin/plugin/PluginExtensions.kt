@@ -1,9 +1,11 @@
 package plugin
 
 import com.android.build.gradle.BaseExtension
-import constant.*
-import org.gradle.api.Project
+import constant.AndroidConfig
+import constant.BuildType
+import constant.BuildTypeDebug
 import org.gradle.api.JavaVersion
+import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 

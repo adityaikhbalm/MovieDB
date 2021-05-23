@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.adityaikhbalm.features.detail.ui.DetailActivity
 import com.adityaikhbalm.features.home.R
 import com.adityaikhbalm.features.home.adapter.HomeAdapter

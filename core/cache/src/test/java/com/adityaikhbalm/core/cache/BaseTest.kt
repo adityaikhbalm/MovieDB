@@ -1,27 +1,28 @@
 package com.adityaikhbalm.core.cache
 
+import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
-import androidx.test.platform.app.InstrumentationRegistry
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import androidx.test.core.app.ApplicationProvider
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 
 open class BaseTest {
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
+
     lateinit var db: MovieDatabase
 
     @Before
     open fun setup() {
-        val context = InstrumentationRegistry.getInstrumentation().context
+        val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(context, MovieDatabase::class.java).build()
     }
 
     @After
     fun tearDown() {
-        runBlocking(Dispatchers.IO) {
-            db.clearAllTables()
-        }
-
         db.close()
     }
 }

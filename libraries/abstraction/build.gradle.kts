@@ -1,7 +1,7 @@
-import constant.LibraryDependency.ArchitectureComponent
 import constant.LibraryDependency.AppComponent
-import constant.LibraryDependency.ImageLoader
+import constant.LibraryDependency.ArchitectureComponent
 import constant.LibraryDependency.Coroutines
+import constant.LibraryDependency.ImageLoader
 import constant.LibraryDependency.View
 import constant.ModulesDependency
 

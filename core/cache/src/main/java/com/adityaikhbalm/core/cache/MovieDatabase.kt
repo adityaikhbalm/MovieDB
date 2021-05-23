@@ -5,7 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.adityaikhbalm.core.cache.dao.*
+import com.adityaikhbalm.core.cache.dao.CastDAO
+import com.adityaikhbalm.core.cache.dao.FavoriteDAO
+import com.adityaikhbalm.core.cache.dao.SimilarDAO
+import com.adityaikhbalm.core.cache.dao.TrailerDAO
 import com.adityaikhbalm.core.model.model.*
 
 @Database(

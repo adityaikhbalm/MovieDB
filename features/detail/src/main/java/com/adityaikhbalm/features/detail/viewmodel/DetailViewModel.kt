@@ -1,6 +1,9 @@
 package com.adityaikhbalm.features.detail.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.adityaikhbalm.core.domain.usecase.cache.DeleteUseCase
 import com.adityaikhbalm.core.domain.usecase.cache.FavoriteUseCase
 import com.adityaikhbalm.core.domain.usecase.cache.InsertUseCase
