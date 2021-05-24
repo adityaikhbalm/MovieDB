@@ -14,6 +14,7 @@ import com.adityaikhbalm.libraries.abstraction.extensions.fetch
 import com.adityaikhbalm.libraries.abstraction.interactor.ResultState
 import com.adityaikhbalm.libraries.utility.Constant
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class MovieDataRepository(
@@ -53,8 +54,9 @@ class MovieDataRepository(
     }
 
     override suspend fun getDetailMovie(id: Int): Flow<ResultState<Movie>> {
+        val data = getFavorite(id).first()
         return fetch {
-            movieRemoteDataStore.getDetailMovie(id)
+            data.takeIf { it.id != 0 } ?: movieRemoteDataStore.getDetailMovie(id)
         }
     }
 

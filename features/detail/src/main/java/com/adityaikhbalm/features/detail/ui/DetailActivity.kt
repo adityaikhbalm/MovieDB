@@ -3,6 +3,7 @@ package com.adityaikhbalm.features.detail.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.adityaikhbalm.core.model.response.Movie
 import com.adityaikhbalm.features.detail.adapter.CastAdapter
 import com.adityaikhbalm.features.detail.adapter.SimilarAdapter
@@ -13,6 +14,8 @@ import com.adityaikhbalm.libraries.abstraction.extensions.startActivity
 import com.adityaikhbalm.libraries.abstraction.extensions.statusLoader
 import com.adityaikhbalm.libraries.abstraction.extensions.viewBinding
 import com.adityaikhbalm.libraries.abstraction.interactor.ResultState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -40,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) viewModel.getFavorite(movieId)
+        if (savedInstanceState == null) viewModel.detailMovie(movieId)
 
         setButton()
         setAdapter()
@@ -51,8 +54,16 @@ class DetailActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { onBackPressed() }
         binding.titleLayout.btnFavorite.setOnClickListener {
             data?.let {
-                if (isFavorite == 0) viewModel.insertFavorite(it)
-                else viewModel.deleteFavorite(it)
+                if (isFavorite == 0) {
+                    isFavorite = 1
+                    viewModel.insertFavorite(it)
+                    binding.setButtonFavorite(this@DetailActivity, isFavorite)
+                }
+                else {
+                    isFavorite = 0
+                    viewModel.deleteFavorite(it)
+                    binding.setButtonFavorite(this@DetailActivity, isFavorite)
+                }
             }
         }
     }
@@ -86,15 +97,16 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
 
-            if (it is ResultState.Success) {
+            if (it is ResultState.Success && initialLoad) {
+                initialLoad = false
                 binding.run {
-                    setButtonFavorite(this@DetailActivity, it.data?.favorite ?: 0)
-                    if (initialLoad) {
-                        data = it.data
+                    data = it.data
+                    lifecycleScope.launch {
+                        delay(1000)
                         setHeader(this@DetailActivity, it.data)
+                        setButtonFavorite(this@DetailActivity, isFavorite)
                         setCategory(detailAdapter, it.data)
                     }
-                    initialLoad = false
                 }
             }
         }

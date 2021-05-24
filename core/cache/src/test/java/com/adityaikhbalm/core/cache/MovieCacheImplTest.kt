@@ -63,6 +63,36 @@ class MovieCacheImplTest : BaseTest() {
     }
 
     @Test
+    fun searchFavorite() {
+        runBlocking(Dispatchers.IO) {
+            val data = listOf(
+                FavoriteMapper().mapToEntity(SampleData.favorite),
+                FavoriteMapper().mapToEntity(SampleData.favorite2)
+            )
+
+            movieCacheImpl.insertFavorite(SampleData.favorite)
+            movieCacheImpl.insertFavorite(SampleData.favorite2)
+
+            Assert.assertEquals(
+                Page(
+                    data = data,
+                    prevKey = null,
+                    nextKey = null,
+                    itemsAfter = 0,
+                    itemsBefore = 0
+                ),
+                movieCacheImpl.searchFavorite("avenger").load(
+                    Refresh(
+                        key = null,
+                        loadSize = 2,
+                        placeholdersEnabled = false
+                    )
+                )
+            )
+        }
+    }
+
+    @Test
     fun selectAllFavorite() {
         runBlocking(Dispatchers.IO) {
             val data = listOf(

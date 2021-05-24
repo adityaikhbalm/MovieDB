@@ -1,63 +1,109 @@
 package com.adityaikhbalm.features.home.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.adityaikhbalm.core.model.response.Movie
-import com.adityaikhbalm.features.home.databinding.ItemHomeBinding
-import com.adityaikhbalm.libraries.abstraction.diffutil.MovieItemDiffUtil
-import com.adityaikhbalm.libraries.abstraction.extensions.imageLoader
-import com.adityaikhbalm.libraries.utility.Utility.convertDpToPixel
-import com.adityaikhbalm.libraries.utility.Utility.toastShow
+import com.adityaikhbalm.features.detail.ui.DetailActivity
+import com.adityaikhbalm.features.home.R
+import com.adityaikhbalm.features.home.databinding.BannerHomeBinding
+import com.adityaikhbalm.features.home.databinding.CategoryHomeBinding
+import com.adityaikhbalm.features.home.viewmodel.HomeViewModel
+import com.adityaikhbalm.libraries.abstraction.extensions.startActivity
+import com.adityaikhbalm.libraries.abstraction.extensions.statusLoader
+import com.adityaikhbalm.libraries.abstraction.recyclerview.LifecycleRecyclerAdapter
 
 class HomeAdapter(
-    private val type: Int,
-    private val onClick: (Movie) -> Unit
-) : ListAdapter<Movie, HomeAdapter.Holder>(MovieItemDiffUtil()) {
+    private val viewModel: HomeViewModel
+) : LifecycleRecyclerAdapter() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val binding = ItemHomeBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-
-        if (type == 0) {
-            binding.homeBackground.radius = 0f
-        } else {
-            val lp = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == 0) {
+            val binding = BannerHomeBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
             )
-            lp.width = 120.convertDpToPixel
-            lp.height = 180.convertDpToPixel
-            lp.setMargins(15.convertDpToPixel, 0, 0, 0)
-            binding.root.layoutParams = lp
+            BannerHolder(binding)
+        } else {
+            val binding = CategoryHomeBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            CategoryHolder(binding)
         }
-
-        return Holder(binding)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position), type)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is BannerHolder) holder.bind(position)
+        if (holder is CategoryHolder) holder.bind(position)
     }
 
-    inner class Holder(
-        private val binding: ItemHomeBinding
+    inner class BannerHolder(
+        private val binding: BannerHomeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie, type: Int) {
-            binding.run {
-                homeBackground.setOnClickListener {
-                    onClick(movie)
-                }
-                homeBackground.setOnLongClickListener {
-                    root.context.toastShow(movie.title)
-                    return@setOnLongClickListener false
-                }
+        fun bind(position: Int) {
+            LinearSnapHelper().attachToRecyclerView(binding.bannerRecyclerView)
 
-                val url = if (type == 0) movie.backdropPath else movie.posterPath
-                homeImage.imageLoader(shimmer = shimmerHome, type = type, url = url)
+            val itemAdapter = HomeItemAdapter(position) {
+                val bundle = Pair(DetailActivity.MOVIE_ID, it.id)
+                (binding.root.context as Activity).startActivity<DetailActivity>(bundle)
+            }
+
+            binding.bannerRecyclerView.run {
+                setHasFixedSize(false)
+                adapter = itemAdapter
+            }
+
+            viewModel.banner.observe(this@HomeAdapter) {
+                it.statusLoader(binding = binding.bannerLoader) {
+                    viewModel.bannerLoad()
+                }
+                val movie = it.data?.toMutableList()
+                movie?.subList(movie.size - 15, movie.size)?.clear()
+                binding.bannerIndicator.attachToRecyclerView(binding.bannerRecyclerView)
+                itemAdapter.submitList(movie)
             }
         }
     }
+
+    inner class CategoryHolder(
+        private val binding: CategoryHomeBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int) {
+
+            val itemAdapter = HomeItemAdapter(position) {
+                val bundle = Pair(DetailActivity.MOVIE_ID, it.id)
+                (binding.root.context as Activity).startActivity<DetailActivity>(bundle)
+            }
+
+            binding.categoryTv.text = binding.root.context.getString(
+                if (position == 1) R.string.popular_movies
+                else R.string.coming_soon
+            )
+
+            binding.categoryRecyclerView.run {
+                setHasFixedSize(false)
+                adapter = itemAdapter
+            }
+
+            if (position == 1) {
+                viewModel.popular.observe(this@HomeAdapter) {
+                    it.statusLoader(binding = binding.categoryLoader) {
+                        viewModel.popularLoad()
+                    }
+                    itemAdapter.submitList(it.data)
+                }
+            } else {
+                viewModel.coming.observe(this@HomeAdapter) {
+                    it.statusLoader(binding = binding.categoryLoader) {
+                        viewModel.comingLoad()
+                    }
+                    itemAdapter.submitList(it.data)
+                }
+            }
+        }
+    }
+
+    override fun getItemCount() = 3
+
+    override fun getItemViewType(position: Int) = position
 }

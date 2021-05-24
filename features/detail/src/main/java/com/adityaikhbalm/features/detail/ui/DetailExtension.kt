@@ -33,7 +33,10 @@ fun ActivityDetailBinding.setHeader(context: Context, movie: Movie?) {
         }
 
         if (hour == 0 && min == 0) detailRuntime.hide()
-        else detailRuntime.text = runtime
+        else {
+            detailRuntime.show()
+            detailRuntime.text = runtime
+        }
 
         detailTitle.text = movie?.title
         detailOverview.text = movie?.overview
@@ -72,18 +75,23 @@ fun ActivityDetailBinding.setCategory(
     movie: Movie?
 ) {
     run {
-        if (!movie?.title.isNullOrEmpty()) {
-            titleLayout.root.show()
-        }
-        if (!movie?.credit?.cast.isNullOrEmpty()) {
+        if (movie?.title.isNullOrEmpty()) titleLayout.root.hide()
+        else titleLayout.root.show()
+
+        if (movie?.credit?.cast.isNullOrEmpty()) castLayout.root.hide()
+        else {
             castLayout.root.show()
             (detailAdapter[0] as CastAdapter).submitList(movie?.credit?.cast)
         }
-        if (!movie?.trailer?.results.isNullOrEmpty()) {
+
+        if (movie?.trailer?.results.isNullOrEmpty()) trailerLayout.root.hide()
+        else {
             trailerLayout.root.show()
             (detailAdapter[1] as TrailerAdapter).submitList(movie?.trailer?.results)
         }
-        if (!movie?.similar?.results.isNullOrEmpty()) {
+
+        if (!movie?.similar?.results.isNullOrEmpty()) similarLayout.root.hide()
+        else {
             similarLayout.root.show()
             (detailAdapter[2] as SimilarAdapter).submitList(movie?.similar?.results)
         }
