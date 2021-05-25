@@ -9,7 +9,7 @@ import com.adityaikhbalm.features.home.R
 import com.adityaikhbalm.features.home.adapter.HomeAdapter
 import com.adityaikhbalm.features.home.databinding.FragmentHomeBinding
 import com.adityaikhbalm.features.home.viewmodel.HomeViewModel
-import com.adityaikhbalm.libraries.abstraction.extensions.*
+import com.adityaikhbalm.libraries.abstraction.extensions.viewBinding
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {

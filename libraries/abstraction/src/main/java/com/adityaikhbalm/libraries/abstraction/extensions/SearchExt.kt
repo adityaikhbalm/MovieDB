@@ -71,8 +71,8 @@ fun BaseSearch.setMenu(
         }
 
         override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-            paging.invoke()
             if (!searchText.isNullOrEmpty() && searchSubmit) {
+                paging.invoke()
                 searchSubmit = false
             }
             return true

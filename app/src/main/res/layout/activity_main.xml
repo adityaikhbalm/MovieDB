@@ -37,8 +37,8 @@
         app:isLight="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/navView"
-        app:targetBottomNavigation="@+id/navView" />
+        app:layout_constraintTop_toTopOf="@+id/bottomNavigationView"
+        app:targetBottomNavigation="@+id/bottomNavigationView" />
 
     <com.adityaikhbalm.libraries.ui.bottomnavigation.BottomNavigationIndicator
         android:layout_width="0dp"
@@ -47,6 +47,6 @@
         app:isLight="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/navView"
-        app:targetBottomNavigation="@+id/navView" />
+        app:layout_constraintTop_toTopOf="@+id/bottomNavigationView"
+        app:targetBottomNavigation="@+id/bottomNavigationView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

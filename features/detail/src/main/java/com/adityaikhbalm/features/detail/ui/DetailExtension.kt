@@ -90,7 +90,7 @@ fun ActivityDetailBinding.setCategory(
             (detailAdapter[1] as TrailerAdapter).submitList(movie?.trailer?.results)
         }
 
-        if (!movie?.similar?.results.isNullOrEmpty()) similarLayout.root.hide()
+        if (movie?.similar?.results.isNullOrEmpty()) similarLayout.root.hide()
         else {
             similarLayout.root.show()
             (detailAdapter[2] as SimilarAdapter).submitList(movie?.similar?.results)
